@@ -4,6 +4,7 @@ import io.github.openminigameserver.hypixelapi.models.HypixelPackageRank
 import io.github.openminigameserver.nickarcade.core.data.sender.ArcadeSender
 import io.github.openminigameserver.nickarcade.core.database
 import kotlinx.datetime.Clock
+import org.geysermc.floodgate.api.FloodgateApi
 import org.litote.kmongo.eq
 import java.util.*
 
@@ -36,7 +37,7 @@ object InviteManager {
     }
 
     suspend fun hasPlayerReceivedInvite(invited: UUID): Boolean {
-        return getPlayerInvite(invited) != null
+        return getPlayerInvite(invited) != null || (FloodgateApi.getInstance().isFloodgateId(invited))
     }
 
     private const val inviteLimit = 1
